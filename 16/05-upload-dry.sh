@@ -26,12 +26,13 @@ esac
 
 echo "Android Version: $version -> Branch: $branch"
 
-# Upload main rom
-echo "Uploading main rom..."
-rclone copy out/target/product/$device/EvolutionX*.zip b2:evo-downloads/$device/$date/ -P
+# Show what main rom would be uploaded
+echo "Would upload main rom:"
+echo "  Source: out/target/product/$device/EvolutionX*.zip"
+echo "  Destination: b2:evo-downloads/$device/$date/"
 echo " "
 
-# Identify and upload initial install images
+# Identify and show initial install images that would be uploaded
 json="/opt/device_install_images/all_images.json"
 
 # Extract initial_installation_images from json for specific device and branch
@@ -54,10 +55,18 @@ if [ -z "$initial_images" ]; then
     exit 1
 fi
 
-# Upload found images
+# Show what images would be uploaded
+echo "Would upload the following images:"
 for image in $initial_images; do
-    echo "Uploading $image..."
-    rclone copy out/target/product/$device/$image.img b2:evo-downloads/$device/$date/$image/ -P
-    echo "  ✓ $image uploaded"
+    image_path="out/target/product/$device/$image.img"
+    if [ -f "$image_path" ]; then
+        echo "  ✓ $image"
+        echo "    Source: $image_path"
+        echo "    Destination: b2:evo-downloads/$device/$date/$image/"
+    else
+        echo "  ✗ $image (file not found: $image_path)"
+    fi
     echo " "
 done
+
+echo "Dry run complete. No files were actually uploaded."
