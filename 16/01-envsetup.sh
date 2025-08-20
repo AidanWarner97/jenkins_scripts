@@ -1,4 +1,5 @@
 #!/bin/bash
 
 # Updating from source
-rsync -ah --delete --info=progress2 /mnt/evo/11-source/ /mnt/evo/11-build/
+echo "Creating environment from source snapshot..."
+rsync -ah --delete /mnt/evo/11-source/ /mnt/evo/11-build/
