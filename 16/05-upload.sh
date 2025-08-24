@@ -29,6 +29,13 @@ echo "Android Version: $version -> Branch: $branch"
 # Upload main rom
 echo "Uploading main rom..."
 rclone copy out/target/product/$device/EvolutionX*.zip b2:evo-downloads/$device/$date/ -P
+echo "  ✓ Main ROM uploaded"
+echo " "
+
+# Upload JSON
+echo "Uploading OTA JSON..."
+rclone copy out/target/product/$device/$device.json b2:evo-downloads/$device/$date.json -P
+echo "  ✓ OTA JSON uploaded"
 echo " "
 
 # Identify and upload initial install images
