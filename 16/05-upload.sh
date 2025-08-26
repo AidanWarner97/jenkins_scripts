@@ -40,7 +40,7 @@ echo "  ✓ OTA JSON uploaded"
 echo " "
 
 # Identify and upload initial install images
-json="/opt/device_install_images/all_images.json"
+json="/opt/flask-list/all_images.json"
 
 # Extract initial_installation_images from json for specific device and branch
 initial_images=$(jq -r --arg device "$device" --arg branch "$branch" '.[] | select(.device == $device) | .versions[$branch][]?' "$json")
