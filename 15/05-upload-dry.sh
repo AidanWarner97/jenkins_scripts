@@ -26,21 +26,14 @@ esac
 
 echo "Android Version: $version -> Branch: $branch"
 
-# Upload main rom
-echo "Uploading main rom..."
-rclone copy out/target/product/$device/EvolutionX*.zip b2:evo-downloads/$device/$date/ -P
-echo "  ✓ Main ROM uploaded"
+# Show what main rom would be uploaded
+echo "Would upload main rom:"
+echo "  Source: out/target/product/$device/EvolutionX*.zip"
+echo "  Destination: b2:evo-downloads/$device/$date/"
 echo " "
 
-# Upload JSON
-echo "Uploading OTA JSON..."
-cp out/target/product/$device/$device.json out/target/product/$device/$date.json
-rclone copy out/target/product/$device/$date.json b2:evo-downloads/$device/ -P
-echo "  ✓ OTA JSON uploaded"
-echo " "
-
-# Identify and upload initial install images
-json="/opt/flask-list/all_images.json"
+# Identify and show initial install images that would be uploaded
+json="/opt/device_install_images/all_images.json"
 
 # Extract initial_installation_images from json for specific device and branch
 initial_images=$(jq -r --arg device "$device" --arg branch "$branch" '.[] | select(.device == $device) | .versions[$branch][]?' "$json")
@@ -62,10 +55,18 @@ if [ -z "$initial_images" ]; then
     exit 1
 fi
 
-# Upload found images
+# Show what images would be uploaded
+echo "Would upload the following images:"
 for image in $initial_images; do
-    echo "Uploading $image..."
-    rclone copy out/target/product/$device/$image.img b2:evo-downloads/$device/$date/$image/ -P
-    echo "  ✓ $image uploaded"
+    image_path="out/target/product/$device/$image.img"
+    if [ -f "$image_path" ]; then
+        echo "  ✓ $image"
+        echo "    Source: $image_path"
+        echo "    Destination: b2:evo-downloads/$device/$date/$image/"
+    else
+        echo "  ✗ $image (file not found: $image_path)"
+    fi
     echo " "
 done
+
+echo "Dry run complete. No files were actually uploaded."
