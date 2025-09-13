@@ -7,6 +7,15 @@ filename=$(echo out/target/product/$device/EvolutionX-*.zip)
 version=$(echo $filename | cut -d "-" -f 2| cut -d "." -f 1)
 date=$(echo $filename | cut -d "-" -f 3 | cut -d "." -f 1)
 
+# Check if filename contains "Vanilla" and set folder accordingly
+if [[ "$filename" == *"Vanilla"* ]]; then
+    folder="${date}_Vanilla"
+    echo "Vanilla build detected - using folder: $folder"
+else
+    folder="$date"
+    echo "Standard build detected - using folder: $folder"
+fi
+
 # Map Android version numbers to branch names
 case $version in
     "16")
@@ -28,14 +37,14 @@ echo "Android Version: $version -> Branch: $branch"
 
 # Upload main rom
 echo "Uploading main rom..."
-rclone copy out/target/product/$device/EvolutionX*.zip b2:evo-downloads/$device/$date/ -P
+rclone copy out/target/product/$device/EvolutionX*.zip b2:evo-downloads/$device/$folder/ -P
 echo "  ✓ Main ROM uploaded"
 echo " "
 
 # Upload JSON
 echo "Uploading OTA JSON..."
-cp out/target/product/$device/$device.json out/target/product/$device/$date.json
-rclone copy out/target/product/$device/$date.json b2:evo-downloads/$device/ -P
+cp out/target/product/$device/$device.json out/target/product/$device/$folder.json
+rclone copy out/target/product/$device/$folder.json b2:evo-downloads/$device/ -P
 echo "  ✓ OTA JSON uploaded"
 echo " "
 
@@ -65,7 +74,7 @@ fi
 # Upload found images
 for image in $initial_images; do
     echo "Uploading $image..."
-    rclone copy out/target/product/$device/$image.img b2:evo-downloads/$device/$date/$image/ -P
+    rclone copy out/target/product/$device/$image.img b2:evo-downloads/$device/$folder/$image/ -P
     echo "  ✓ $image uploaded"
     echo " "
 done
