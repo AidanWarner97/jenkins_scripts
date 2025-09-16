@@ -44,7 +44,7 @@ echo " "
 # Upload JSON
 echo "Uploading OTA JSON..."
 cp out/target/product/$device/$device.json out/target/product/$device/$folder.json
-rclone copy out/target/product/$device/$date.json b2:evo-downloads/$device/ -P
+rclone copy out/target/product/$device/$folder.json b2:evo-downloads/$device/ -P
 echo "  ✓ OTA JSON uploaded"
 echo " "
 
