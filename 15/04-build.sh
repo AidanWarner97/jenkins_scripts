@@ -20,4 +20,4 @@ export KCFLAGS="$KCFLAGS -isystem /usr/include/x86_64-linux-gnu"
 
 source build/envsetup.sh &&
 lunch lineage_$device-$target-$buildtype &&
-m evolution
+m evolution -j40
