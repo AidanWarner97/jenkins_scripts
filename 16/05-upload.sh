@@ -59,7 +59,7 @@ echo "  ✓ OTA JSON uploaded"
 echo " "
 
 # Identify and upload initial install images
-wget https://dashboard.evolution-x.nl/json/all_devices.json -O /opt/flask-list/all_images.json 2>&1 >/dev/null
+wget https://mm-dashboard.evolution-x.org/json/all_images.json -O /opt/flask-list/all_images.json 2>&1 >/dev/null
 json="/opt/flask-list/all_images.json"
 
 # Extract initial_installation_images from json for specific device and branch
