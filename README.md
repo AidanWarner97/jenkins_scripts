@@ -7,7 +7,7 @@ This has been created for use with Evolution X Jenkins Server, however can be ea
 ---
 
 To get started:
- - Clone this repository into a globally accessible location (e.g. /scripts)
+ - Clone this repository into a globally accessible location (e.g. /home/shared/scripts)
  - Set the Jenkins step to run a shell calling the script
 
 I've included an [example pipeline](example-pipeline.txt) to show how this can be used.

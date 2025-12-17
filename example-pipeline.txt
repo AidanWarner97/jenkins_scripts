@@ -6,7 +6,7 @@ pipeline {
             steps {
                 dir('/evo') {
                     sh '''
-                    /scripts/14/01-preclean.sh
+                    /home/shared/scripts/14/01-preclean.sh
                     '''
                 }
             }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 dir('/evo') {
                     sh '''
-                    /scripts/14/02-init.sh
+                    /home/shared/scripts/14/02-init.sh
                     '''
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 dir('/evo') {
                     sh '''
-                    /scripts/14/03-clean.sh ${JOB_BASE_NAME}
+                    /home/shared/scripts/14/03-clean.sh ${JOB_BASE_NAME}
                     '''
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 dir('/evo') {
                     sh '''
-                    /scripts/14/04-build.sh ${JOB_BASE_NAME}
+                    /home/shared/scripts/14/04-build.sh ${JOB_BASE_NAME}
                     '''
                     script {
                         def artifactPath1 = "evolution/OTA/builds/${JOB_BASE_NAME}.json"
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 dir('/evo') {
                     sh '''
-                    /scripts/14/05-upload.sh ${JOB_BASE_NAME} 
+                    /home/shared/scripts/14/05-upload.sh ${JOB_BASE_NAME} 
                     '''
                 }
             }

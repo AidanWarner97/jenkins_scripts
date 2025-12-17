@@ -2,4 +2,4 @@
 
 # Updating from source
 echo "Creating environment from source snapshot..."
-rsync -ah --delete /mnt/evo/11-source/ /mnt/evo/11-build/
+rsync -ah --delete /home/shared/11-source/ /home/shared/11-build/
