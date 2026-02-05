@@ -21,7 +21,7 @@ export KCFLAGS="$KCFLAGS -isystem /usr/include/x86_64-linux-gnu"
 source build/envsetup.sh &&
 lunch lineage_$device-$target-$buildtype &&
 
-google_devices="bramble redfin sunfish caiman comet tokay komodo tegu shiba husky akita tangorpro felix lynx panther cheetah bluejay oriole raven sargo bonito blueline crosshatch"
+google_devices="caiman comet tokay komodo tegu shiba husky akita tangorpro felix lynx panther cheetah bluejay oriole raven sargo bonito blueline crosshatch"
 
 if [[ " $google_devices " == *" $device "* ]]; then
     SOURCE_PATH="vendor/gms/product/packages/privileged_apps/"
