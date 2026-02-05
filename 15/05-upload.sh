@@ -22,13 +22,13 @@ case $version in
         branch="bka"
         ;;
     "15")
-        branch="udc"
-        ;;
-    "14")
         branch="vic"
         ;;
+    "14")
+        branch="udc"
+        ;;
     *)
-        echo "Error: Unknown Android version '$version'. Supported versions: 16 (bka), 15 (udc), 14 (vic)"
+        echo "Error: Unknown Android version '$version'. Supported versions: 16 (bka), 15 (vic), 14 (bka)"
         exit 1
         ;;
 esac
