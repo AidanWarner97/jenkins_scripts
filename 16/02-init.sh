@@ -1,6 +1,6 @@
 #!/bin/bash
 
-repo init -u https://github.com/Evolution-X/manifest -b bq2 --depth=1 --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b bka --depth=1 --git-lfs
 repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --optimized-fetch --prune
 
 mkdir -p /home/shared/11-source/vendor/evolution-priv/
