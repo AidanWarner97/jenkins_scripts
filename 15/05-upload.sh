@@ -5,7 +5,7 @@ device=$1
 # Extract Android Version from json
 filename=$(echo out/target/product/$device/EvolutionX-*.zip)
 version=$(echo $filename | cut -d "-" -f 2| cut -d "." -f 1)
-date=$(echo $filename | cut -d "-" -f 3 | cut -d "." -f 1)
+date=$(date +%Y%m%d)
 
 # Check if filename contains "Vanilla" and set folder accordingly
 if [[ "$filename" == *"Vanilla"* ]]; then
