@@ -19,6 +19,30 @@ export CXXFLAGS="$CXXFLAGS -isystem /usr/include/x86_64-linux-gnu"
 export KERNEL_CFLAGS="$KERNEL_CFLAGS -isystem /usr/include/x86_64-linux-gnu"
 export KCFLAGS="$KCFLAGS -isystem /usr/include/x86_64-linux-gnu"
 
+# export RBE vars
+export USE_RBE=1
+
+export RBE_CXX_EXEC_STRATEGY=local
+export RBE_D8_EXEC_STRATEGY=local
+export RBE_JAVAC_EXEC_STRATEGY=local
+export RBE_METALAVA_EXEC_STRATEGY=local
+export RBE_R8_EXEC_STRATEGY=local
+export RBE_RUST_EXEC_STRATEGY=local
+
+export RBE_CXX=1
+export RBE_D8=1
+export RBE_JAVAC=1
+export RBE_METALAVA=1
+export RBE_R8=1
+export RBE_RUST=1
+
+export RBE_instance=evolutionx
+export RBE_service=127.0.0.1:9092
+export RBE_service_no_security=true
+export RBE_service_no_auth=true
+export RBE_DIR=prebuilts/remoteexecution-client/live
+
+
 source build/envsetup.sh &&
 lunch lineage_$device-$target-$buildtype &&
 
