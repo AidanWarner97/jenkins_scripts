@@ -6,7 +6,7 @@ buildformat=$3
 
 target=$(tail -n 1 vendor/lineage/vars/aosp_target_release | cut -d "=" -f 2)
 
-if [ "$buildtype" == "userdebug" ]; then
+if [ "$buildtype" != "eng" ]; then
     export EVO_BUILD_TYPE=Official
 else
     export EVO_BUILD_TYPE=Unofficial
