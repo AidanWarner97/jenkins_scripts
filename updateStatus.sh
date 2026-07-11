@@ -20,3 +20,10 @@ curl -X POST "$API_URL" \
      --data-urlencode "bt=$BUILDTYPE" \
      --data-urlencode "s=$STATUS" \
      --data-urlencode "ev=$EvoVersion"
+
+# === Create datefile ===
+if [ ! -f "$CODENAME.json" ]; then
+    started_at=$(date -u +"%Y%m%d")
+    json_data="{\"codename\":\"$CODENAME\",\"buildtype\":\"$BUILDTYPE\",\"status\":\"$STATUS\",\"evo_version\":\"$EvoVersion\",\"date\":\"$started_at\"}"
+    echo "$json_data" > "$CODENAME.json"
+fi
