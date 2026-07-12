@@ -15,7 +15,7 @@ fi
 
 # Extract Android Version from json
 version=$(echo $filename | cut -d "-" -f 2| cut -d "." -f 1)
-date=$(jq -r .started_at $device.json)
+date=$(jq -r .started_at ~/$device.json)
 
 # Check if filename contains "Vanilla" and set folder accordingly
 if [[ "$vanilla" == "VANILLA" ]]; then
@@ -28,6 +28,9 @@ fi
 
 # Map Android version numbers to branch names
 case $version in
+    "17")
+        branch="cnb"
+        ;;
     "16")
         branch="bka"
         ;;
@@ -38,7 +41,7 @@ case $version in
         branch="udc"
         ;;
     *)
-        echo "Error: Unknown Android version '$version'. Supported versions: 16 (bka), 15 (udc), 14 (vic)"
+        echo "Error: Unknown Android version '$version'. Supported versions: 17 (cnb), 16 (bka), 15 (vic), 14 (udc)"
         exit 1
         ;;
 esac

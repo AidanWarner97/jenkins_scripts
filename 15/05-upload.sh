@@ -1,23 +1,36 @@
 #!/bin/bash
 
+# Enable extended globbing
+shopt -s extglob
+
 device=$1
+vanilla=$2
+
+# Check if build was vanilla
+if [ "$vanilla" == "VANILLA" ]; then
+    filename=$(basename out/target/product/$device/EvolutionX-*Vanilla*.zip)
+else
+    filename=$(basename out/target/product/$device/EvolutionX-*.zip 2>/dev/null | grep -v Vanilla | head -1)
+fi
 
 # Extract Android Version from json
-filename=$(echo out/target/product/$device/EvolutionX-*.zip)
 version=$(echo $filename | cut -d "-" -f 2| cut -d "." -f 1)
-date=$(jq -r .started_at $device.json)
+date=$(jq -r .started_at ~/$device.json)
 
 # Check if filename contains "Vanilla" and set folder accordingly
-if [[ "$filename" == *"Vanilla"* ]]; then
+if [[ "$vanilla" == "VANILLA" ]]; then
     folder="${date}_Vanilla"
-    echo "Vanilla build detected - using folder: $folder"
+    echo "Vanilla build - using folder: $folder"
 else
     folder="$date"
-    echo "Standard build detected - using folder: $folder"
+    echo "GAPPS build - using folder: $folder"
 fi
 
 # Map Android version numbers to branch names
 case $version in
+    "17")
+        branch="cnb"
+        ;;
     "16")
         branch="bka"
         ;;
@@ -28,7 +41,7 @@ case $version in
         branch="udc"
         ;;
     *)
-        echo "Error: Unknown Android version '$version'. Supported versions: 16 (bka), 15 (vic), 14 (bka)"
+        echo "Error: Unknown Android version '$version'. Supported versions: 17 (cnb), 16 (bka), 15 (vic), 14 (udc)"
         exit 1
         ;;
 esac
@@ -49,6 +62,7 @@ echo "  ✓ OTA JSON uploaded"
 echo " "
 
 # Identify and upload initial install images
+wget https://mm-dashboard.evolution-x.org/_API/fetchimages.php -O /opt/flask-list/all_images.json 2>&1 >/dev/null
 json="/opt/flask-list/all_images.json"
 
 # Extract initial_installation_images from json for specific device and branch
